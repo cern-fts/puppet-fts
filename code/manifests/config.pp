@@ -54,6 +54,8 @@ class fts::config (
   fts3config{'/Infosys':             value => $bdii_infosys}
   fts3config{'/Alias':               value => $host_alias}
   fts3config{'/MonitoringMessaging': value => 'true'}
+  fts3config{'roles/Public':         value => 'vo:transfer'}
+  fts3config{'roles/production':     value => 'all:config'}
 
   # Maybe not needed with newer fts.
   # 
@@ -65,7 +67,6 @@ class fts::config (
     owner   => 'fts3',
     group   => 'fts3'
   }
-
 
   augeas{'/etc/fts3/fts-msg-monitoring.conf':
       incl    => "/etc/fts3/fts-msg-monitoring.conf",
