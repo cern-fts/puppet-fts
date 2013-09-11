@@ -95,5 +95,13 @@ class fts::config (
      require => Package['policycoreutils-python'],
      before  => Service['httpd']
   }
+    # Make sure debug is disabled for the rest interface
+  file_line{'fts3_rest_disable_debug':
+    path => '/etc/fts3/fts3rest.ini',
+    match => '^debug\s*=.*',
+    line => 'debug = false',
+    before => Service['httpd'],
+    notify => Service['httpd']
+  }
 }
 
