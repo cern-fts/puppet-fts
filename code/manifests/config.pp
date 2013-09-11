@@ -67,8 +67,15 @@ class fts::config (
     owner   => 'fts3',
     group   => 'fts3'
   }
+  file{'/etc/fts3/fts-msg-monitoring.conf':
+      ensure => file,
+      replace => false,
+      mode    => '0644',
+      owner   => 'fts3',
+      group   => 'fts3'
+  }
 
-  augeas{'/etc/fts3/fts-msg-monitoring.conf':
+  augeas{'edit_/etc/fts3/fts-msg-monitoring.conf':
       incl    => "/etc/fts3/fts-msg-monitoring.conf",
       lens    => "shellvars.lns",
       context => "/files/etc/fts3/fts-msg-monitoring.conf",
@@ -94,6 +101,14 @@ class fts::config (
      unless  => "/usr/sbin/semanage port  -l | /bin/grep '^http_port_t ' | /bin/grep -q ${logport}",
      require => Package['policycoreutils-python'],
      before  => Service['httpd']
+  }
+    # Make sure debug is disabled for the rest interface
+  file_line{'fts3_rest_disable_debug':
+    path => '/etc/fts3/fts3rest.ini',
+    match => '^debug\s*=.*',
+    line => 'debug = false',
+    before => Service['httpd'],
+    notify => Service['httpd']
   }
 }
 
