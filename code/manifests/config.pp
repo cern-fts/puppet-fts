@@ -67,8 +67,15 @@ class fts::config (
     owner   => 'fts3',
     group   => 'fts3'
   }
+  file{'/etc/fts3/fts-msg-monitoring.conf':
+      ensure => file,
+      replace => false,
+      mode    => '0644',
+      owner   => 'fts3',
+      group   => 'fts3'
+  }
 
-  augeas{'/etc/fts3/fts-msg-monitoring.conf':
+  augeas{'edit_/etc/fts3/fts-msg-monitoring.conf':
       incl    => "/etc/fts3/fts-msg-monitoring.conf",
       lens    => "shellvars.lns",
       context => "/files/etc/fts3/fts-msg-monitoring.conf",
