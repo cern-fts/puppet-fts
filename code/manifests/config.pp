@@ -9,7 +9,8 @@ class fts::config (
    $msg_username      = $fts::params::msg_username,
    $bdii_infosys      = $fts::params::bdii_infosys,
    $host_alias        = $fts::params::host_alias,
-   $site_name         = $fts::params::site_name
+   $site_name         = $fts::params::site_name,
+   $rest_debug        = $fts::params::rest_debug,
 ) inherits fts::params  {
    firewall{"100 Allow ${port} access to fts":
       proto => 'tcp',
@@ -104,7 +105,7 @@ class fts::config (
   }
     # Make sure debug is disabled for the rest interface
   fts3restconfig{'DEFAULT/debug': 
-       value => 'false',
+       value => $rest_debug,
        before => Service['httpd'],
        notify => Service['httpd']
   } 
