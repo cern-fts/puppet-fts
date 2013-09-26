@@ -1,3 +1,4 @@
+#Class: fts::config
 class fts::config (
    $port              = $fts::params::port,
    $restport          = $fts::params::restport,
@@ -87,23 +88,6 @@ class fts::config (
       notify => [Service['fts-msg-bulk'],Service['fts-msg-cron']],
   }
 
-
-  package{'policycoreutils-python':
-    ensure => present
-  }
-  exec{"http_port_resetport":
-     command => "/usr/sbin/semanage port -a -t http_port_t -p tcp ${restport}",
-     unless  => "/usr/sbin/semanage port  -l | /bin/grep '^http_port_t ' | /bin/grep -q ${restport}",
-     require => Package['policycoreutils-python'],
-     before  => Service['httpd']
-  }
-  exec{"http_port_logport":
-     command => "/usr/sbin/semanage port -a -t http_port_t -p tcp ${logport}",
-     unless  => "/usr/sbin/semanage port  -l | /bin/grep '^http_port_t ' | /bin/grep -q ${logport}",
-     require => Package['policycoreutils-python'],
-     before  => Service['httpd']
-  }
-    # Make sure debug is disabled for the rest interface
   fts3restconfig{'DEFAULT/debug': 
        value => $rest_debug,
        before => Service['httpd'],

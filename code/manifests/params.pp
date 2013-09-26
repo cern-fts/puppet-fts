@@ -1,3 +1,4 @@
+#Class: fts::params
 class fts::params {
    $port              = 8443
    $restport          = 8446
