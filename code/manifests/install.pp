@@ -5,7 +5,8 @@ class fts::install (
   $gfal2_repo       = $fts::params::gfal2_repo,
   $repo_includepkgs = $fts::params::repo_includepkgs,
   $version          = $fts::params::version,
-  $rest_version     = $fts::params::rest_version
+  $rest_version     = $fts::params::rest_version,
+  $rest_selinux_version = $fts::params::fts_rest_selinux,
 ) inherits fts::params {
 
 
@@ -13,19 +14,19 @@ class fts::install (
         ensure => present
     }
 
-    package{['fts-server','fts-client',"fts-${db_type}"]:
+    package{['fts-server','fts-client',"fts-${db_type}","fts-libs","fts-monitoring"]:
         ensure  => $version,
         require => [Yumrepo['fts'],Yumrepo['gfal2']]
     }
-    package{['fts-rest','fts-rest-selinux']:
+    package{'fts-rest':
         ensure  => $rest_version,
         require => [Yumrepo['fts'],Yumrepo['gfal2']]
     }
-    package{['fts-monitoring']:
-        ensure => present,
-        notify  => Service['httpd'],
-        require => [Yumrepo['fts'],Yumrepo['gfal2'],Package['httpd']]
+    package{'fts-rest-selinux':
+        ensure  => $rest_selinux_version,
+        require => [Yumrepo['fts'],Yumrepo['gfal2']]
     }
+
 
 
     yumrepo {'fts':

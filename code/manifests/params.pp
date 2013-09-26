@@ -4,6 +4,7 @@ class fts::params {
    $logport           = 80   
    $version           = hiera('fts3_version','present')
    $rest_version      = hiera('fts3_rest_version','present')
+   $rest_selinux_version      = hiera('fts3_rest_version','present')
    $db_connect_string = hiera('fts3_db_connect_string',undef)
    $db_type           = hiera('fts3_db_type','mysql')
    $db_username       = hiera('fts3_db_username','ora_user')
