@@ -6,7 +6,6 @@ class fts::install (
   $repo_includepkgs = $fts::params::repo_includepkgs,
   $version          = $fts::params::version,
   $rest_version     = $fts::params::rest_version,
-  $rest_selinux_version = $fts::params::fts_rest_selinux,
 ) inherits fts::params {
 
 
