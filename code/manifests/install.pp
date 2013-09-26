@@ -18,16 +18,10 @@ class fts::install (
         ensure  => $version,
         require => [Yumrepo['fts'],Yumrepo['gfal2']]
     }
-    package{'fts-rest':
+    package{['fts-rest','fts-rest-selinux']:
         ensure  => $rest_version,
         require => [Yumrepo['fts'],Yumrepo['gfal2']]
     }
-    package{'fts-rest-selinux':
-        ensure  => $rest_selinux_version,
-        require => [Yumrepo['fts'],Yumrepo['gfal2']]
-    }
-
-
 
     yumrepo {'fts':
                descr       => "FTS service",
