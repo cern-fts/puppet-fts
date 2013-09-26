@@ -1,3 +1,4 @@
+# Class: fts
 class fts {
 
     Class['fts::install'] -> Class['fts::config'] -> Class['fts::service']

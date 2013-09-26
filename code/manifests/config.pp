@@ -1,3 +1,4 @@
+#Class: fts::config
 class fts::config (
    $port              = $fts::params::port,
    $restport          = $fts::params::restport,
@@ -9,7 +10,8 @@ class fts::config (
    $msg_username      = $fts::params::msg_username,
    $bdii_infosys      = $fts::params::bdii_infosys,
    $host_alias        = $fts::params::host_alias,
-   $site_name         = $fts::params::site_name
+   $site_name         = $fts::params::site_name,
+   $rest_debug        = $fts::params::rest_debug,
 ) inherits fts::params  {
    firewall{"100 Allow ${port} access to fts":
       proto => 'tcp',
@@ -86,29 +88,10 @@ class fts::config (
       notify => [Service['fts-msg-bulk'],Service['fts-msg-cron']],
   }
 
-
-  package{'policycoreutils-python':
-    ensure => present
-  }
-  exec{"http_port_resetport":
-     command => "/usr/sbin/semanage port -a -t http_port_t -p tcp ${restport}",
-     unless  => "/usr/sbin/semanage port  -l | /bin/grep '^http_port_t ' | /bin/grep -q ${restport}",
-     require => Package['policycoreutils-python'],
-     before  => Service['httpd']
-  }
-  exec{"http_port_logport":
-     command => "/usr/sbin/semanage port -a -t http_port_t -p tcp ${logport}",
-     unless  => "/usr/sbin/semanage port  -l | /bin/grep '^http_port_t ' | /bin/grep -q ${logport}",
-     require => Package['policycoreutils-python'],
-     before  => Service['httpd']
-  }
-    # Make sure debug is disabled for the rest interface
-  file_line{'fts3_rest_disable_debug':
-    path => '/etc/fts3/fts3rest.ini',
-    match => '^debug\s*=.*',
-    line => 'debug = false',
-    before => Service['httpd'],
-    notify => Service['httpd']
-  }
+  fts3restconfig{'DEFAULT/debug': 
+       value => $rest_debug,
+       before => Service['httpd'],
+       notify => Service['httpd']
+  } 
 }
 
