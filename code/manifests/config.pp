@@ -104,7 +104,7 @@ class fts::config (
   }
     # Make sure debug is disabled for the rest interface
   fts3restconfig{'DEFAULT/debug': 
-       value => 'false'
+       value => 'false',
        before => Service['httpd'],
        notify => Service['httpd']
   } 
