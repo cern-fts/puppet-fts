@@ -12,6 +12,7 @@ class fts::config (
    $host_alias        = $fts::params::host_alias,
    $site_name         = $fts::params::site_name,
    $rest_debug        = $fts::params::rest_debug,
+   $open_files        = $fts::params::open_files
 ) inherits fts::params  {
    firewall{"100 Allow ${port} access to fts":
       proto => 'tcp',
@@ -93,5 +94,29 @@ class fts::config (
        before => Service['httpd'],
        notify => Service['httpd']
   } 
+
+  # Increase the limits.conf
+  Limits::Entry {
+       item   => 'nofile',
+       value  =>  $open_files,
+       notify =>  Service['fts-server']
+  }
+  limits::entry{'root-soft': type => 'soft', domain => 'root'}
+  limits::entry{'fts3-soft': type => 'soft', domain => 'fts3'}
+  limits::entry{'root-hard': type => 'hard', domain => 'root'}
+  limits::entry{'fts3-hard': type => 'hard', domain => 'fts3'}
+
+  # Web services are quite chatty and compress well.
+  augeas{'httpd_logrorate':
+     incl    => '/etc/logrotate.d/httpd',
+     lens    => 'Logrotate.lns',
+     context => '/files/etc/logrotate.d/httpd/rule',
+     changes => ['set compress compress',
+                 'rm delaycompress'
+                ]
+  }
+
+
+
 }
 
