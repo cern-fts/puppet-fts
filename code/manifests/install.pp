@@ -17,7 +17,7 @@ class fts::install (
     ensure  => $version,
     require => [Yumrepo['fts'],Yumrepo['gfal2']]
   }
-  package{['fts-monitoring', 'fts-monitoring-selinux'],
+  package{['fts-monitoring', 'fts-monitoring-selinux']:
     ensure  => $version,
     require =>  [Yumrepo['fts']]
   }
