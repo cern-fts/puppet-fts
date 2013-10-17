@@ -22,6 +22,6 @@ class fts::params {
   $repo_includepkgs  = hiera('fts3_repo_includepkgs',['fts-*','gfal2-*','python-fts','srm-ifce'])
 
   # Specify ORACLE client packages if you need to, only relavent if db_type is oracle.
-  $orapkgs           = hiera('fts3_orapkgs',['oracle-instantclient-basic','oracle-instantclient-sqlplus','rlwrap'])
+  $orapkgs           = hiera('fts3_orapkgs',['oracle-instantclient-basic','oracle-instantclient-sqlplus','rlwrap','cx_Oracle'])
 
 }
