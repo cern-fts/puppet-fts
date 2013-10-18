@@ -44,7 +44,7 @@ class fts::install (
   }
 
   # Install oracle client if needed.
-  if $::db_type == 'oracle' {
+  if $db_type == 'oracle' {
     package{$orapkgs:
       ensure => present,
     }
