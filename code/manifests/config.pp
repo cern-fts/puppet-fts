@@ -6,7 +6,7 @@ class fts::config (
    $db_connect_string = $fts::params::db_connect_string,
    $db_type           = $fts::params::db_type,
    $db_username       = $fts::params::db_username,
-   $db_profiling      = $fts::params::db_profiling,
+   $profiling         = $fts::params::profiling,
    $msg_password      = $fts::params::msg_password,
    $msg_username      = $fts::params::msg_username,
    $bdii_infosys      = $fts::params::bdii_infosys,
@@ -54,13 +54,12 @@ class fts::config (
   fts3config{'/DbUserName':          value => $db_username}
   fts3config{'/DbPassword':          value => $db_password}
   fts3config{'/DbThreadsNum':        value => '30'}
-  fts3config{'/Profiling':           value => $db_profiling}
+  fts3config{'/Profiling':           value => $profiling}
   fts3config{'/Infosys':             value => $bdii_infosys}
   fts3config{'/Alias':               value => $host_alias}
   fts3config{'/MonitoringMessaging': value => 'true'}
   fts3config{'roles/Public':         value => 'vo:transfer'}
   fts3config{'roles/production':     value => 'all:config'}
-  fts3config{'roles/lcgadmin':       value => 'all:config'}
 
   # Maybe not needed with newer fts.
   # 
