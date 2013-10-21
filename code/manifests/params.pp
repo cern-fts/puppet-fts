@@ -10,6 +10,7 @@ class fts::params {
   $db_type           = hiera('fts3_db_type','mysql')
   $db_username       = hiera('fts3_db_username','ora_user')
   $db_password       = hiera('fts3_db_password','ora_pass')
+  $db_profiling      = hiera('fts3_db_profiling', '0')
   $msg_username      = hiera('fts3_msg_username','msg_username')
   $msg_password      = hiera('fts3_msg_password','msg_pass')
   $bdii_infosys      = hiera('fts3_bdii_infosys','lcg-bdii.cern.ch:2170')
