@@ -2,7 +2,7 @@
 class fts::config (
   $port              = $fts::params::port,
   $restport          = $fts::params::restport,
-  $logport           = $fts::params::logport,
+  $monport           = $fts::params::monport,
   $db_connect_string = $fts::params::db_connect_string,
   $db_type           = $fts::params::db_type,
   $db_username       = $fts::params::db_username,
