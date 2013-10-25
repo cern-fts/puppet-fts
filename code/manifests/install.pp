@@ -25,6 +25,11 @@ class fts::install (
     ensure  => $rest_version,
     require => [Yumrepo['fts'],Yumrepo['gfal2']]
   }
+  # Additional gfal2 rpms
+  package{['gfal2-plugin-http','gfal2-plugin-xrootd']:
+    ensure => latest,
+    require => [Yumrepo['gfal2']]
+  }
 
   yumrepo {'fts':
     descr       => 'FTS service',
