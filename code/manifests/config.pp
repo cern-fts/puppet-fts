@@ -27,10 +27,10 @@ class fts::config (
     dport  => $restport,
     action => 'accept'
   }
-  firewall{"100 Allow ${logport} access to fts log viewer":
+  firewall{"100 Allow ${monport} access to fts logs and monitoring":
     proto  => 'tcp',
     state  => 'NEW',
-    dport  => $logport,
+    dport  => $monport,
     action => 'accept'
   }
   firewall{'100 Allow 2170 access to bdii':
