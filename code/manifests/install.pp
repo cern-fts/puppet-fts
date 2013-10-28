@@ -6,14 +6,19 @@ class fts::install (
   $repo_includepkgs = $fts::params::repo_includepkgs,
   $version          = $fts::params::version,
   $rest_version     = $fts::params::rest_version,
+  $monitoring_version = $fts::params::monitoring_version
 ) inherits fts::params {
 
   package{'httpd':
     ensure => present
   }
 
-  package{['fts-server','fts-client',"fts-${db_type}",'fts-libs','fts-monitoring']:
+  package{['fts-server','fts-client',"fts-${db_type}",'fts-libs']:
     ensure  => $version,
+    require => Yumrepo['fts']
+  }
+  package{['fts-monitoring','fts-monitoring-selinux']:
+    ensure => $monitoring_version,
     require => Yumrepo['fts']
   }
   package{['fts-rest','fts-rest-selinux']:
