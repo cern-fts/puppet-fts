@@ -2,7 +2,7 @@
 class fts::config (
   $port              = $fts::params::port,
   $restport          = $fts::params::restport,
-  $monport           = $fts::params::monport,
+  $logport           = $fts::params::logport,
   $db_connect_string = $fts::params::db_connect_string,
   $db_type           = $fts::params::db_type,
   $db_username       = $fts::params::db_username,
@@ -27,10 +27,10 @@ class fts::config (
     dport  => $restport,
     action => 'accept'
   }
-  firewall{"100 Allow ${monport} access to fts logs and monitoring":
+  firewall{"100 Allow ${logport} access to fts logs and monitoring":
     proto  => 'tcp',
     state  => 'NEW',
-    dport  => $monport,
+    dport  => $logport,
     action => 'accept'
   }
   firewall{'100 Allow 2170 access to bdii':
