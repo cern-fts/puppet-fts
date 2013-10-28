@@ -17,10 +17,6 @@ class fts::install (
     ensure  => $version,
     require => Yumrepo['fts']
   }
-  package{['fts-monitoring','fts-monitoring-selinux']:
-    ensure => $monitoring_version,
-    require => Yumrepo['fts']
-  }
   package{['fts-monitoring', 'fts-monitoring-selinux']:
     ensure  => $version,
     require =>  [Yumrepo['fts']]
