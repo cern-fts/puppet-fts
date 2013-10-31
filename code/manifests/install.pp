@@ -3,6 +3,7 @@ class fts::install (
   $db_type          = $fts::params::db_type,
   $orapkgs          = $fts::params::orapkgs,
   $fts3_repo        = $fts::params::fts3_repo,
+  $fts3_repo_expire = $fts::params::fts3_repo_expire,
   $repo_includepkgs = $fts::params::repo_includepkgs,
   $version          = $fts::params::version,
   $rest_version     = $fts::params::rest_version,
@@ -36,6 +37,7 @@ class fts::install (
     gpgcheck    => '0',
     priority    => '15',
     enabled     => '1',
+    metadata_expire => $fts3_repo_expire,
     includepkgs => join($repo_includepkgs,',')
   }
 
