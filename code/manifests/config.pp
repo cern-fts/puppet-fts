@@ -7,6 +7,7 @@ class fts::config (
   $db_type           = $fts::params::db_type,
   $db_username       = $fts::params::db_username,
   $db_password       = $fts::params::db_password,
+  $msg_broker        = $fts::params::msg_broker,
   $msg_password      = $fts::params::msg_password,
   $msg_username      = $fts::params::msg_username,
   $bdii_infosys      = $fts::params::bdii_infosys,
@@ -93,7 +94,8 @@ class fts::config (
     incl    => '/etc/fts3/fts-msg-monitoring.conf',
     lens    => 'shellvars.lns',
     context => '/files/etc/fts3/fts-msg-monitoring.conf',
-    changes => ["set FQDN ${::fqdn}",
+    changes => ["SET BROKER ${msg_broker}",
+                "set FQDN ${::fqdn}",
                 "set PASSWORD ${msg_password}",
                 "set USERNAME ${msg_username}",
                 "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
