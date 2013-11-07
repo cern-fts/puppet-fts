@@ -82,13 +82,21 @@ class fts::config (
     group   => 'fts3'
   }
 
+  if $msg_username != '' or $msg_password != '' {
+    $msg_use_credentials = 'true'
+  }
+  else {
+    $msg_use_credentials = 'false'
+  }
+
   augeas{'edit_/etc/fts3/fts-msg-monitoring.conf':
     incl    => '/etc/fts3/fts-msg-monitoring.conf',
     lens    => 'shellvars.lns',
     context => '/files/etc/fts3/fts-msg-monitoring.conf',
     changes => ["set FQDN ${::fqdn}",
                 "set PASSWORD ${msg_password}",
-                "set USERNAME ${msg_username}"
+                "set USERNAME ${msg_username}",
+                "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
     ],
     notify  => [Service['fts-msg-bulk'],Service['fts-msg-cron']],
   }
