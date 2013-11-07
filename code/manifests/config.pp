@@ -94,10 +94,10 @@ class fts::config (
     incl    => '/etc/fts3/fts-msg-monitoring.conf',
     lens    => 'shellvars.lns',
     context => '/files/etc/fts3/fts-msg-monitoring.conf',
-    changes => ["set BROKER ${msg_broker}",
+    changes => ["set BROKER '${msg_broker}'",
                 "set FQDN ${::fqdn}",
-                "set PASSWORD ${msg_password}",
-                "set USERNAME ${msg_username}",
+                "set PASSWORD '${msg_password}'",
+                "set USERNAME '${msg_username}'",
                 "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
     ],
     notify  => [Service['fts-msg-bulk'],Service['fts-msg-cron']],
