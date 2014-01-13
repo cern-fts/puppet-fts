@@ -14,7 +14,7 @@ class fts::install (
     ensure => present
   }
 
-  package{['fts-server','fts-client',"fts-${db_type}",'fts-libs']:
+  package{['fts-server','fts-client',"fts-${db_type}",'fts-libs', 'fts-infosys', 'fts-msg']:
     ensure  => $version,
     require => Yumrepo['fts']
   }
