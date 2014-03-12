@@ -14,13 +14,23 @@ class fts::install (
     ensure => present
   }
 
-  package{['fts-server','fts-client',"fts-${db_type}",'fts-libs', 'fts-infosys', 'fts-msg']:
+  # Specify an order in case an explicit version is set.
+
+  package{['fts-server','fts-client','fts-libs', 'fts-infosys', 'fts-msg']:
     ensure  => $version,
     require => Yumrepo['fts']
   }
-  package{['fts-monitoring', 'fts-monitoring-selinux']:
+  # The rpm dependency is present but we must get the correct
+  # version fts-libs in stalled first rather than as a 
+  # dependency of fts-mysql.
+  package{"fts-${db_type}":
     ensure  => $version,
-    require =>  [Yumrepo['fts']]
+    require => Package['fts-libs']
+  }
+
+  package{['fts-monitoring','fts-monitoring-selinux']:
+    ensure => $monitoring_version,
+    require => Yumrepo['fts']
   }
   package{['fts-rest','fts-rest-selinux']:
     ensure  => $rest_version,
