@@ -63,7 +63,7 @@ class fts::config (
   fts3config{'/MonitoringMessaging': value => 'true'}
   fts3config{'roles/Public':         value => 'vo:transfer;all:config'}
   fts3config{'roles/production':     value => 'all:config'}
-  fts3config{'roles/lcgadmin':       value => 'all:config'}
+  fts3config{'roles/lcgadmin':       value => 'all:config;vo:transfer'}
 
   # Maybe not needed with newer fts.
   #
