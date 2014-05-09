@@ -99,6 +99,14 @@ class fts::config (
     notify => Service['httpd']
   }
 
+  # Apache Keep Alive on
+  apache_directive{"KeepAlive":
+    ensure => present,
+    args   => 'On',
+    notify => Service['httpd']
+  }
+
+
   # Increase the limits.conf
   Limits::Entry {
     item   => 'nofile',
