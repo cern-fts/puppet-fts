@@ -100,7 +100,7 @@ class fts::config (
   }
 
   # Apache Keep Alive on
-  apache_directive{"KeepAlive":
+  apache_directive{'KeepAlive':
     ensure => present,
     args   => 'On',
     notify => Service['httpd']
