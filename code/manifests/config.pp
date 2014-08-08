@@ -100,7 +100,7 @@ class fts::config (
                 "set USERNAME '${msg_username}'",
                 "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
     ],
-    notify  => [Service['fts-msg-bulk'],Service['fts-msg-cron']],
+    notify  => [Service['fts-msg-bulk']],
   }
 
   fts3restconfig{'DEFAULT/debug':
