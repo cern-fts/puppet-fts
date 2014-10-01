@@ -100,7 +100,7 @@ class fts::config (
                 "set USERNAME '${msg_username}'",
                 "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
     ],
-    notify  => [Service['fts-msg-bulk']],
+    notify  => Service['fts-msg-bulk'],
   }
 
   fts3restconfig{'DEFAULT/debug':
@@ -142,7 +142,7 @@ class fts::config (
     hour    => fqdn_rand(24),
     minute  => fqdn_rand(60),
     user    => root,
-    command => '/usr/sbin/tmpwatch -mc 10d /var/log/fts3/[0-9]*'
+    command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/[0-9]*'
   }
 
 }
