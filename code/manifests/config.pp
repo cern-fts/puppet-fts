@@ -9,6 +9,7 @@ class fts::config (
   $db_password       = $fts::params::db_password,
   $msg_password      = $fts::params::msg_password,
   $msg_username      = $fts::params::msg_username,
+  $msg_broker        = $fts::params::msg_broker,
   $bdii_infosys      = $fts::params::bdii_infosys,
   $host_alias        = $fts::params::host_alias,
   $site_name         = $fts::params::site_name,
@@ -88,7 +89,8 @@ class fts::config (
     context => '/files/etc/fts3/fts-msg-monitoring.conf',
     changes => ["set FQDN ${::fqdn}",
                 "set PASSWORD ${msg_password}",
-                "set USERNAME ${msg_username}"
+                "set USERNAME ${msg_username}",
+                "set BROKER ${msg_broker}"
     ],
     notify  => Service['fts-msg-bulk'],
   }

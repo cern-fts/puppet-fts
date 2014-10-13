@@ -13,6 +13,7 @@ class fts::params {
   $db_password       = hiera('fts3_db_password','ora_pass')
   $msg_username      = hiera('fts3_msg_username','msg_username')
   $msg_password      = hiera('fts3_msg_password','msg_pass')
+  $msg_broker        = hiera('fts3_msg_broker','dashb-mb.cern.ch:61113')
   $bdii_infosys      = hiera('fts3_bdii_infosys','lcg-bdii.cern.ch:2170')
   $host_alias        = hiera('fts3_host_alias',$::fqdn)
   $site_name         = hiera('fts3_site_name','SITE_NAME')
