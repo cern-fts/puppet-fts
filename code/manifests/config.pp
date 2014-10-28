@@ -10,6 +10,7 @@ class fts::config (
   $msg_broker        = $fts::params::msg_broker,
   $msg_password      = $fts::params::msg_password,
   $msg_username      = $fts::params::msg_username,
+  $msg_broker        = $fts::params::msg_broker,
   $bdii_infosys      = $fts::params::bdii_infosys,
   $host_alias        = $fts::params::host_alias,
   $site_name         = $fts::params::site_name,
@@ -94,11 +95,10 @@ class fts::config (
     incl    => '/etc/fts3/fts-msg-monitoring.conf',
     lens    => 'shellvars.lns',
     context => '/files/etc/fts3/fts-msg-monitoring.conf',
-    changes => ["set BROKER '${msg_broker}'",
-                "set FQDN ${::fqdn}",
-                "set PASSWORD '${msg_password}'",
-                "set USERNAME '${msg_username}'",
-                "set USE_BROKER_CREDENTIALS ${msg_use_credentials}"
+    changes => ["set FQDN ${::fqdn}",
+                "set PASSWORD ${msg_password}",
+                "set USERNAME ${msg_username}",
+                "set BROKER ${msg_broker}"
     ],
     notify  => Service['fts-msg-bulk'],
   }
@@ -142,7 +142,7 @@ class fts::config (
     hour    => fqdn_rand(24),
     minute  => fqdn_rand(60),
     user    => root,
-    command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/[0-9]*'
+    command => '/usr/sbin/tmpwatch -mc 8d /var/log/fts3/[0-9]*'
   }
 
 }
