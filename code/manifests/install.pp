@@ -37,7 +37,7 @@ class fts::install (
     require => Yumrepo['fts']
   }
   # Additional gfal2 rpms
-  package{['gfal2-plugin-http','gfal2-plugin-xrootd']:
+  package{['gfal2-plugin-http']:
     ensure => latest
   }
 
