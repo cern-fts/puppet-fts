@@ -45,7 +45,8 @@ class fts::config (
     notify => [Service['fts-server'],
       Service['fts-records-cleaner'],
       Service['fts-bdii-cache-updater'],
-      Service['fts-bringonline']
+      Service['fts-bringonline'],
+      Service['httpd']
     ],
   }
 
