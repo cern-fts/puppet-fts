@@ -46,7 +46,8 @@ class fts::config (
       Service['fts-records-cleaner'],
       Service['fts-bdii-cache-updater'],
       Service['fts-bringonline'],
-      Service['httpd']
+      Service['httpd'],
+      Service['fts-msg-bulk']
     ],
   }
 
