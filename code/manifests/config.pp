@@ -46,7 +46,8 @@ class fts::config (
       Service['fts-records-cleaner'],
       Service['fts-bdii-cache-updater'],
       Service['fts-bringonline'],
-      Service['httpd']
+      Service['httpd'],
+      Service['fts-msg-bulk']
     ],
   }
 
@@ -135,7 +136,7 @@ class fts::config (
     hour    => fqdn_rand(24),
     minute  => fqdn_rand(60),
     user    => root,
-    command => '/usr/sbin/tmpwatch -mc 8d /var/log/fts3/[0-9]*'
+    command => '/usr/sbin/tmpwatch -mc 2d /var/log/fts3/[0-9]*'
   }
 
 }
