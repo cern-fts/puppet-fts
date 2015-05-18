@@ -16,30 +16,21 @@ class fts::config (
   $rest_debug        = $fts::params::rest_debug,
   $open_files        = $fts::params::open_files
 ) inherits fts::params  {
-  firewall{"100 Allow ${port} access to fts":
+  firewall{"100 Allow ipv4  access to fts":
     proto  => 'tcp',
     state  => 'NEW',
-    dport  => $port,
+    dport  => [$port,$restport,$logport,'2170'],
     action => 'accept'
   }
-  firewall{"100 Allow ${restport} access to fts rest interface":
+  firewall{"100 Allow ipv6  access to fts":
+    provider => 'ip6tables',
     proto  => 'tcp',
     state  => 'NEW',
-    dport  => $restport,
+    dport  => [$port,$restport,$logport,'2170'],
     action => 'accept'
   }
-  firewall{"100 Allow ${logport} access to fts log viewer":
-    proto  => 'tcp',
-    state  => 'NEW',
-    dport  => $logport,
-    action => 'accept'
-  }
-  firewall{'100 Allow 2170 access to bdii':
-    proto  => 'tcp',
-    state  => 'NEW',
-    dport  => 2170,
-    action => 'accept'
-  }
+
+
 
   Fts3config {
     notify => [Service['fts-server'],
