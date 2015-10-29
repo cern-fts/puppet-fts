@@ -49,7 +49,6 @@ class fts::config (
   fts3config{'/DbConnectString':     value => $db_connect_string}
   fts3config{'/DbType':              value => $db_type}
   fts3config{'/DbUserName':          value => $db_username}
-  fts3config{'/DbPassword':          value => $db_password}
   fts3config{'/DbThreadsNum':        value => '30'}
   fts3config{'/Profiling':           value => $profiling}
   fts3config{'/Infosys':             value => $bdii_infosys}
