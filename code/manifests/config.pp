@@ -42,7 +42,8 @@ class fts::config (
     ],
   }
 
-
+  #fts3config{'/TransferLogDirectory': value => '/var/log/fts3/transfers'}
+  #fts3config{'/ServerLogDirectory':  value =>  '/var/log/fts3'}
   fts3config{'/Port':                value => $port}
   fts3config{'/SiteName':                value => $site_name}
   fts3config{'/DbConnectString':     value => $db_connect_string}
@@ -122,9 +123,9 @@ class fts::config (
     ]
   }
 
-  cron{'purge_tansfer_files':
-    hour    => fqdn_rand(24),
-    minute  => fqdn_rand(60),
+  cron{'old_purge_tansfer_files':
+    hour    => fqdn_rand(24,'old'),
+    minute  => fqdn_rand(60,'old'),
     user    => root,
     command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/[0-9]*'
   }
