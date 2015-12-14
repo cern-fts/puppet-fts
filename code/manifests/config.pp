@@ -129,13 +129,6 @@ class fts::config (
     user    => root,
     command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/[0-9]*'
   }
-  cron{'purge_tansfer_files':
-    hour    => fqdn_rand(24,'new'),
-    minute  => fqdn_rand(60,'new'),
-    user    => root,
-    command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/transfers/'
-  }
-
 
 }
 
