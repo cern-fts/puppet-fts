@@ -42,7 +42,8 @@ class fts::config (
     ],
   }
 
-
+  fts3config{'/TransferLogDirectory': value => '/var/log/fts3/transfers'}
+  fts3config{'/ServerLogDirectory':  value =>  '/var/log/fts3'}
   fts3config{'/Port':                value => $port}
   fts3config{'/SiteName':                value => $site_name}
   fts3config{'/DbConnectString':     value => $db_connect_string}
