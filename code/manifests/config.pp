@@ -1,4 +1,4 @@
-#Class: fts::config
+# Class: fts::config
 class fts::config (
   $port              = $fts::params::port,
   $restport          = $fts::params::restport,
@@ -122,13 +122,5 @@ class fts::config (
                 'rm delaycompress'
     ]
   }
-
-  cron{'old_purge_tansfer_files':
-    hour    => fqdn_rand(24,'old'),
-    minute  => fqdn_rand(60,'old'),
-    user    => root,
-    command => '/usr/sbin/tmpwatch -mc 3d /var/log/fts3/[0-9]*'
-  }
-
 }
 
