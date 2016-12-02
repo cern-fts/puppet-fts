@@ -1,0 +1,4 @@
+---
+ci/Rakefile:
+  extra_disabled_rake_targets:
+     - lint

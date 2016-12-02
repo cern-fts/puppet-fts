@@ -1,59 +1,5 @@
 {
   "author": "Steve Traylen",
-  "types": [
-    {
-      "providers": [
-        {
-          "doc": "",
-          "name": "ini_setting"
-        }
-      ],
-      "properties": [
-        {
-          "doc": "The basic property that the resource should be in.\n\nValid values are `present`, `absent`. ",
-          "name": "ensure"
-        },
-        {
-          "doc": "The value of the setting to be defined.\n\n",
-          "name": "value"
-        }
-      ],
-      "parameters": [
-        {
-          "doc": "Section/setting name to manage from fts3config\n\nValues can match `/\\S*\\/\\S+/`.",
-          "name": "name"
-        }
-      ],
-      "doc": "",
-      "name": "fts3config"
-    },
-    {
-      "providers": [
-        {
-          "doc": "",
-          "name": "ini_setting"
-        }
-      ],
-      "properties": [
-        {
-          "doc": "The basic property that the resource should be in.\n\nValid values are `present`, `absent`. ",
-          "name": "ensure"
-        },
-        {
-          "doc": "The value of the setting to be defined.\n\n",
-          "name": "value"
-        }
-      ],
-      "parameters": [
-        {
-          "doc": "Section/setting name to manage from fts3rest.ini config\n\nValues can match `/\\S*\\/\\S+/`.",
-          "name": "name"
-        }
-      ],
-      "doc": "",
-      "name": "fts3restconfig"
-    }
-  ],
   "version": "0.0.5",
   "dependencies": [
     {
@@ -98,7 +44,7 @@
     "lib/puppet/type/fts3restconfig.rb": "ff611fde6ce8ae60c8b4eea89518bf34"
   },
   "summary": "Manages FTS Servers",
-  "license": "Apache License, Version 2.0",
+  "license": "Apache-2.0",
   "project_page": "https://github.com/cernops/puppet-fts",
   "description": "Manages FTS Clients"
 }
