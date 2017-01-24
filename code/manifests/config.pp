@@ -10,7 +10,6 @@ class fts::config (
   $msg_broker        = $fts::params::msg_broker,
   $msg_password      = $fts::params::msg_password,
   $msg_username      = $fts::params::msg_username,
-  $msg_broker        = $fts::params::msg_broker,
   $bdii_infosys      = $fts::params::bdii_infosys,
   $host_alias        = $fts::params::host_alias,
   $site_name         = $fts::params::site_name,
