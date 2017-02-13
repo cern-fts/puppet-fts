@@ -31,11 +31,10 @@ RSpec::Core::RakeTask.new(:acceptance) do |t|
   t.pattern = 'spec/acceptance'
 end
 
-desc 'Run tests metadata_lint, syntax, lint, spec'
+desc 'Run tests metadata_lint, syntax, spec'
 task test: [
   :metadata_lint,
   :syntax,
-  :lint,
   :spec,
 ]
 # vim: syntax=ruby
