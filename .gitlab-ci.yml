@@ -14,29 +14,16 @@ stages:
 # created in it-puppet-module-ci_images, this can be overridden
 # via msync.
 
-cc7-puppet-ci-master:
+cc7-puppet-ci:
   stage: images
   tags:
     - docker-image-build
-  only:
-    - master@ai/it-puppet-module-ci_images
-  script: ""
-  variables:
-    CONTEXT_DIR: ci/
-    FROM:    gitlab-registry.cern.ch/linuxsupport/cc7-base
-    TO:      ${CI_REGISTRY_IMAGE}:cc7-puppet-ci
-
-cc7-puppet-ci-dev:
-  stage: images
-  tags:
-    - docker-image-build
-  except:
-    - master
   only:
     - branches@ai/it-puppet-module-ci_images
-  script: ""
+  script: "echo"
   variables:
-    CONTEXT_DIR: ci/
+    CONTEXT_DIR: .
+    DOCKER_FILE: ci/Dockerfile
     FROM:    gitlab-registry.cern.ch/linuxsupport/cc7-base
     TO:      ${CI_REGISTRY_IMAGE}:cc7-puppet-ci-${CI_BUILD_REF_NAME}
 
@@ -45,47 +32,35 @@ before_script:
   - '[ -n "${AI_CI_SSH_KEY}" ] && eval $(ssh-agent -s)'
   - '[ -n "${AI_CI_SSH_KEY}" ] && ssh-add <(echo "$AI_CI_SSH_KEY")'
 
-puppet3:
-  stage: tests
-  tags:
-   - docker
-  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci
-  script:
-    - cd code
-    - rm -f ../ci/Gemfile.lock
-    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 3.0' bundle install --local --without system_tests development
-    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 3.0' bundle exec rake --rakefile ../ci/Rakefile test
-
 puppet4:
   stage: tests
   tags:
    - docker
-  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-master
   script:
     - cd code
     - rm -f ../ci/Gemfile.lock
-    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' bundle install --local --without system_tests development
-    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' bundle exec rake --rakefile ../ci/Rakefile test 
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.8.0' bundle install --local --without system_tests development
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.8.0' bundle exec rake --rakefile ../ci/Rakefile test 
 
-
-puppet4_strict:
+puppet4_latest:
   stage: tests
   tags:
    - docker
-  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-master
   script:
     - cd code
     - rm -f ../ci/Gemfile.lock
-    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' bundle install --local --without system_tests development
-    - LANG=en_US.UTF-8 STRICT_VARIABLES="yes" BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' bundle exec rake --rakefile ../ci/Rakefile test 
+    - BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' scl enable rh-ruby22 'bundle install --local --without system_tests development'
+    - LANG=en_US.UTF-8 BUNDLE_GEMFILE=../ci/Gemfile PUPPET_VERSION='~> 4.0' scl enable rh-ruby22 'bundle exec rake --rakefile ../ci/Rakefile test'
   allow_failure: true
 
 yaml-validate:
   stage: tests
   tags:
    - docker
-  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci
+  image: gitlab-registry.cern.ch/ai/it-puppet-module-ci_images:cc7-puppet-ci-master
   script:
-    - yaml-lint data/
-
+    - if [ -d data ] ; then yaml-lint data ; else true; fi
+    - if [ -f .sync.yml ] ; then yaml-lint .sync.yml ; else true; fi
 
