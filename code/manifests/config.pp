@@ -14,7 +14,9 @@ class fts::config (
   $host_alias        = $fts::params::host_alias,
   $site_name         = $fts::params::site_name,
   $rest_debug        = $fts::params::rest_debug,
-  $open_files        = $fts::params::open_files
+  $open_files        = $fts::params::open_files,
+  $authorizedVOs     = $fts::params::authorizedVOs,
+  $monitoring_messages = $fts::params::monitoring_messages,
 ) inherits fts::params  {
   firewall{"100 Allow ipv4  access to fts":
     proto  => 'tcp',
@@ -52,11 +54,11 @@ class fts::config (
   fts3config{'/DbThreadsNum':        value => '30'}
   fts3config{'/Infosys':             value => $bdii_infosys}
   fts3config{'/Alias':               value => $host_alias}
-  fts3config{'/MonitoringMessaging': value => 'true'}
+  fts3config{'/MonitoringMessaging': value => $monitoring_messages}
+  fts3config{'/AuthorizedVO':        value => $authorizedVOs}
   fts3config{'roles/Public':         value => 'vo:transfer'}
   fts3config{'roles/production':     value => 'all:config'}
   fts3config{'roles/lcgadmin':     value => 'vo:transfer'}
-
 
   # Maybe not needed with newer fts.
   #
