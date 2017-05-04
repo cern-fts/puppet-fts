@@ -35,18 +35,22 @@ class fts::config (
     action => 'accept'
   }
 
-  $_services = [ Service['fts-server'],  Service['fts-records-cleaner'], Service['fts-bdii-cache-updater'], Service['httpd'] ]
+  $services = [ 'fts-server', 'fts-records-cleaner', 'fts-bdii-cache-updater', 'httpd' ]
   
-  if $enable_bringonline {
-    $services = concat($_services,[Service['fts-bringonline']])
-  }
-   
-  if $enable_msg {
-     $services = concat($_services, [Service['fts-msg-bulk']])
+  Fts3config {
+    notify => Service[$services],
   }
 
-  Fts3config {
-    notify => $services,
+  if $enable_bringonline {
+    Fts3config {
+      notify => Service['fts-bringonline'],
+   }
+  }
+
+  if $enable_msg {
+    Fts3config {
+      notify => Service['fts-msg-bulk'],
+   }
   }
 
   fts3config{'/Port':                value => $port}
