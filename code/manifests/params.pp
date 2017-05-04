@@ -20,7 +20,8 @@ class fts::params {
   $open_files        = hiera('fts3_open_files','16384')
   $authorizedVOs     = hiera('fts3_authorizedVOs','*')
   $monitoring_messages = hiera('fts3_monitoring_messages',true)
-
+  $enable_msg        = hiera('fts3_enable_msg',true)
+  $enable_bringonline = hiera('fts3_enable_bringonline',true)
   $fts3_repo         = hiera('fts3_fts_repo',"http://grid-deployment.web.cern.ch/grid-deployment/dms/fts3/repos/el${::operatingsystemmajrelease}/x86_64")
   $repo_includepkgs  = hiera('fts3_repo_includepkgs',['fts-*','gfal2-*','python-fts','srm-ifce','davix-*,CGSI-gSOAP'])
 

@@ -1,5 +1,6 @@
 #Class: fts::service
-class fts::service {
+class fts::service (
+) inherits fts::params  {
 
   include ('fetchcrl')
 
@@ -8,11 +9,7 @@ class fts::service {
     enable    => true,
     subscribe => Package['fts-server']
   }
-  service{'fts-msg-bulk':
-    ensure    => running,
-    enable    => true,
-    subscribe => Package['fts-server']
-  }
+
   service{'fts-records-cleaner':
     ensure => running,
     enable => true,
@@ -20,11 +17,6 @@ class fts::service {
   service{'fts-bdii-cache-updater':
     ensure => running,
     enable => true,
-  }
-  service{'fts-bringonline':
-    ensure    => running,
-    enable    => true,
-    subscribe => Package['fts-server']
   }
   service{'httpd':
     ensure    => running,
@@ -36,5 +28,22 @@ class fts::service {
     ensure => running,
     enable => true,
   }
+
+  if $fts::params::enable_msg {
+    service{'fts-msg-bulk':
+      ensure    => running,
+      enable    => true,
+      subscribe => Package['fts-server']
+    }
+  }
+  
+  if $fts::params::enable_brigonline {
+    service{'fts-bringonline':
+      ensure    => running,
+      enable    => true,
+      subscribe => Package['fts-server']
+    }
+  }
+
 }
 

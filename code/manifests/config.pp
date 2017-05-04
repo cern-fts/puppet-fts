@@ -17,7 +17,10 @@ class fts::config (
   $open_files        = $fts::params::open_files,
   $authorizedVOs     = $fts::params::authorizedVOs,
   $monitoring_messages = $fts::params::monitoring_messages,
+  $enable_bringonline = $fts::params::enable_bringonline,
+  $enable_msg        = $fts::params::enable_msg,
 ) inherits fts::params  {
+
   firewall{"100 Allow ipv4  access to fts":
     proto  => 'tcp',
     state  => 'NEW',
@@ -32,20 +35,20 @@ class fts::config (
     action => 'accept'
   }
 
-
-
-  Fts3config {
-    notify => [Service['fts-server'],
-      Service['fts-records-cleaner'],
-      Service['fts-bdii-cache-updater'],
-      Service['fts-bringonline'],
-      Service['httpd'],
-      Service['fts-msg-bulk']
-    ],
+  $services = [ Service['fts-server'],  Service['fts-records-cleaner'], Service['fts-bdii-cache-updater'], Service['httpd'] ]
+  
+  if $enable_bringonline {
+    $service = concat($service,[Service['fts-bringonline']])
+  }
+   
+  if $enable_msg {
+     $service = concat($service, [Service['fts-msg-bulk']])
   }
 
-  #fts3config{'/TransferLogDirectory': value => '/var/log/fts3/transfers'}
-  #fts3config{'/ServerLogDirectory':  value =>  '/var/log/fts3'}
+  Fts3config {
+    notify => $services,
+  }
+
   fts3config{'/Port':                value => $port}
   fts3config{'/SiteName':                value => $site_name}
   fts3config{'/DbConnectString':     value => $db_connect_string}
