@@ -35,14 +35,14 @@ class fts::config (
     action => 'accept'
   }
 
-  $services = [ Service['fts-server'],  Service['fts-records-cleaner'], Service['fts-bdii-cache-updater'], Service['httpd'] ]
+  $_services = [ Service['fts-server'],  Service['fts-records-cleaner'], Service['fts-bdii-cache-updater'], Service['httpd'] ]
   
   if $enable_bringonline {
-    $services = concat($services,[Service['fts-bringonline']])
+    $services = concat($_services,[Service['fts-bringonline']])
   }
    
   if $enable_msg {
-     $services = concat($services, [Service['fts-msg-bulk']])
+     $services = concat($_services, [Service['fts-msg-bulk']])
   }
 
   Fts3config {
