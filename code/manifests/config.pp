@@ -36,21 +36,17 @@ class fts::config (
   }
 
   $services = [ 'fts-server', 'fts-records-cleaner', 'fts-bdii-cache-updater', 'httpd' ]
-  
-  Fts3config {
-    notify => Service[$services],
-  }
-
+   
   if $enable_bringonline {
-    Fts3config {
-      notify => Service['fts-bringonline'],
-   }
+    concat($services,'fts-bringonline')
   }
 
   if $enable_msg {
-    Fts3config {
-      notify => Service['fts-msg-bulk'],
-   }
+    concat($services,'fts-msg-bulk')
+  }
+  
+  Fts3config {
+    notify => Service[$services],
   }
 
   fts3config{'/Port':                value => $port}
