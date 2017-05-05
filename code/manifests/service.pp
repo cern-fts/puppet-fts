@@ -1,5 +1,7 @@
 #Class: fts::service
 class fts::service (
+  $enable_bringonline = $fts::params::enable_bringonline,
+  $enable_msg         = $fts::params::enable_msg,
 ) inherits fts::params  {
 
   include ('fetchcrl')
@@ -29,7 +31,7 @@ class fts::service (
     enable => true,
   }
 
-  if $fts::params::enable_msg {
+  if $enable_msg {
     service{'fts-msg-bulk':
       ensure    => running,
       enable    => true,
@@ -37,7 +39,7 @@ class fts::service (
     }
   }
   
-  if $fts::params::enable_brigonline {
+  if $enable_brigonline {
     service{'fts-bringonline':
       ensure    => running,
       enable    => true,
