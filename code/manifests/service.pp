@@ -39,7 +39,7 @@ class fts::service (
     }
   }
   
-  if $enable_brigonline {
+  if $enable_bringonline {
     service{'fts-bringonline':
       ensure    => running,
       enable    => true,
