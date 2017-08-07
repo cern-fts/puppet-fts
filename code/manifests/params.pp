@@ -21,11 +21,6 @@ class fts::params {
   $authorizedVOs     = hiera('fts3_authorizedVOs','*')
   $monitoring_messages = hiera('fts3_monitoring_messages',true)
 
-  $optimizer_max_success = hiera('fts3_optimizer_max_success_rate', 100)
-  $optimizer_med_success = hiera('fts3_optimizer_med_success_rate', 98)
-  $optimizer_low_success = hiera('fts3_optimizer_low_success_rate', 97)
-  $optimizer_base_success = hiera('fts3_optimizer_base_success_rate', 96)
-
   $fts3_repo         = hiera('fts3_fts_repo',"http://grid-deployment.web.cern.ch/grid-deployment/dms/fts3/repos/el${::operatingsystemmajrelease}/x86_64")
   $repo_includepkgs  = hiera('fts3_repo_includepkgs',['fts-*','gfal2-*','python-fts','srm-ifce','davix-*,CGSI-gSOAP'])
 
