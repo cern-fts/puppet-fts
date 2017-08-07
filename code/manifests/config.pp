@@ -56,6 +56,12 @@ class fts::config (
   fts3config{'/Alias':               value => $host_alias}
   fts3config{'/MonitoringMessaging': value => $monitoring_messages}
   fts3config{'/AuthorizedVO':        value => $authorizedVOs}
+
+  fts3config{'/OptimizerMaxSuccessRate':  value => $optimizer_max_success}
+  fts3config{'/OptimizerMedSuccessRate':  value => $optimizer_med_success}
+  fts3config{'/OptimizerLowSuccessRate':  value => $optimizer_low_success}
+  fts3config{'/OptimizerBaseSuccessRate': value => $optimizer_base_success}
+
   fts3config{'roles/Public':         value => 'vo:transfer'}
   fts3config{'roles/production':     value => 'all:config'}
   fts3config{'roles/lcgadmin':     value => 'vo:transfer'}
