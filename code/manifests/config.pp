@@ -19,6 +19,7 @@ class fts::config (
   $monitoring_messages = $fts::params::monitoring_messages,
   $enable_bringonline = $fts::params::enable_bringonline,
   $enable_msg        = $fts::params::enable_msg,
+  $enable_server     = $fts::params::enable_server
 ) inherits fts::params  {
 
   firewall{"100 Allow ipv4  access to fts":

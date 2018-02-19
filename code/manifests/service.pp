@@ -2,14 +2,17 @@
 class fts::service (
   $enable_bringonline = $fts::params::enable_bringonline,
   $enable_msg         = $fts::params::enable_msg,
+  $enable_server      = $fts::params::enable_server
 ) inherits fts::params  {
 
   include ('fetchcrl')
 
-  service{'fts-server':
-    ensure    => running,
-    enable    => true,
-    subscribe => Package['fts-server']
+  if $enable_server {
+    service{'fts-server':
+      ensure    => running,
+      enable    => true,
+      subscribe => Package['fts-server']
+    }
   }
 
   service{'fts-records-cleaner':

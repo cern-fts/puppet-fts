@@ -23,6 +23,7 @@ class fts::params {
   $monitoring_messages = hiera('fts3_monitoring_messages',true)
   $enable_msg        = hiera('fts3_enable_msg',true)
   $enable_bringonline = hiera('fts3_enable_bringonline',true)
+  $enable_server     = hiera('fts3_enable_server',true)
   $fts3_repo         = hiera('fts3_fts_repo',"http://grid-deployment.web.cern.ch/grid-deployment/dms/fts3/repos/el${::operatingsystemmajrelease}/x86_64")
   $repo_includepkgs  = hiera('fts3_repo_includepkgs',['fts-*','gfal2-*','python-fts','srm-ifce','davix-*,CGSI-gSOAP'])
 
