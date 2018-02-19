@@ -46,9 +46,6 @@ class fts::config (
     concat($services,'fts-msg-bulk')
   }
   
-  Fts3config {
-    notify => Service[$services],
-  }
 
   fts3config{'/Port':                value => $port}
   fts3config{'/SiteName':                value => $site_name}
@@ -120,7 +117,6 @@ class fts::config (
   Limits::Entry {
     item   => 'nofile',
     value  =>  $open_files,
-    notify =>  Service['fts-server']
   }
   limits::entry{'root-soft': type => 'soft', domain => 'root'}
   limits::entry{'fts3-soft': type => 'soft', domain => 'fts3'}
