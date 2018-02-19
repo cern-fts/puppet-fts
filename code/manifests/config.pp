@@ -36,7 +36,7 @@ class fts::config (
     action => 'accept'
   }
 
-  $services = [ 'fts-server', 'fts-records-cleaner', 'fts-bdii-cache-updater', 'httpd' ]
+  $services = [ 'fts-records-cleaner', 'fts-bdii-cache-updater', 'httpd' ]
    
   if $enable_bringonline {
     concat($services,'fts-bringonline')
@@ -44,6 +44,10 @@ class fts::config (
 
   if $enable_msg {
     concat($services,'fts-msg-bulk')
+  }
+
+  if $enable_server {
+    concat($services,'fts-server')
   }
   
 

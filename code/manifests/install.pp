@@ -22,17 +22,18 @@ class fts::install (
       require => Yumrepo['fts']
     }
   }
-
-  package{['fts-server','fts-client','fts-libs','fts-infosys','fts-server-selinux']:
-    ensure  => $version,
-    require => Yumrepo['fts']
-  }
-  # The rpm dependency is present but we must get the correct
-  # version fts-libs in stalled first rather than as a
-  # dependency of fts-mysql.
-  package{"fts-${db_type}":
-    ensure  => $version,
-    require => Package['fts-libs']
+  if $fts::params::enable_server {
+    package{['fts-server','fts-client','fts-libs','fts-infosys','fts-server-selinux']:
+      ensure  => $version,
+      require => Yumrepo['fts']
+    }
+    # The rpm dependency is present but we must get the correct
+    # version fts-libs in stalled first rather than as a
+    # dependency of fts-mysql.
+    package{"fts-${db_type}":
+      ensure  => $version,
+      require => Package['fts-libs']
+    }
   }
 
   package{['fts-monitoring','fts-monitoring-selinux']:
@@ -68,7 +69,6 @@ class fts::install (
     mode    => '0644',
     owner   => 'fts3',
     group   => root,
-    require => Package['fts-server'] # fts-server package creates the fts3 user.'
 
   }
   file{'/etc/grid-security/fts3hostkey.pem':
@@ -77,7 +77,6 @@ class fts::install (
     mode    => '0600',
     owner   => 'fts3',
     group   => 'root',
-    require => Package['fts-server'] # fts-server package creates the fts3 user.'
   }
 
 }
