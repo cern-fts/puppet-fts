@@ -38,7 +38,6 @@ class fts::service (
     service{'fts-msg-bulk':
       ensure    => running,
       enable    => true,
-      subscribe => Package['fts-server']
     }
   }
   
