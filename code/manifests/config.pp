@@ -14,8 +14,13 @@ class fts::config (
   $host_alias        = $fts::params::host_alias,
   $site_name         = $fts::params::site_name,
   $rest_debug        = $fts::params::rest_debug,
-  $open_files        = $fts::params::open_files
+  $open_files        = $fts::params::open_files,
+  $authorizedVOs     = $fts::params::authorizedVOs,
+  $monitoring_messages = $fts::params::monitoring_messages,
+  $enable_bringonline = $fts::params::enable_bringonline,
+  $enable_msg        = $fts::params::enable_msg,
 ) inherits fts::params  {
+
   firewall{"100 Allow ipv4  access to fts":
     proto  => 'tcp',
     state  => 'NEW',
@@ -30,20 +35,20 @@ class fts::config (
     action => 'accept'
   }
 
-
-
-  Fts3config {
-    notify => [Service['fts-server'],
-      Service['fts-records-cleaner'],
-      Service['fts-bdii-cache-updater'],
-      Service['fts-bringonline'],
-      Service['httpd'],
-      Service['fts-msg-bulk']
-    ],
+  $services = [ 'fts-server', 'fts-records-cleaner', 'fts-bdii-cache-updater', 'httpd' ]
+   
+  if $enable_bringonline {
+    concat($services,'fts-bringonline')
   }
 
-  #fts3config{'/TransferLogDirectory': value => '/var/log/fts3/transfers'}
-  #fts3config{'/ServerLogDirectory':  value =>  '/var/log/fts3'}
+  if $enable_msg {
+    concat($services,'fts-msg-bulk')
+  }
+  
+  Fts3config {
+    notify => Service[$services],
+  }
+
   fts3config{'/Port':                value => $port}
   fts3config{'/SiteName':                value => $site_name}
   fts3config{'/DbConnectString':     value => $db_connect_string}
@@ -53,10 +58,11 @@ class fts::config (
   fts3config{'/Profiling':           value => $profiling}
   fts3config{'/Infosys':             value => $bdii_infosys}
   fts3config{'/Alias':               value => $host_alias}
-  fts3config{'/MonitoringMessaging': value => 'true'}
   fts3config{'roles/Public':         value => 'vo:transfer;all:datamanagement'}
   fts3config{'roles/production':     value => 'all:config'}
   fts3config{'roles/lcgadmin':       value => 'all:config;vo:transfer'}
+  fts3config{'/MonitoringMessaging': value => $monitoring_messages}
+  fts3config{'/AuthorizedVO':        value => $authorizedVOs}
 
   # Maybe not needed with newer fts.
   #

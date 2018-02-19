@@ -12,3 +12,9 @@ code/*.iml
 code/.*.sw
 ci/.bundle
 ci/Gemfile.lock
+*.swp
+.project
+.pydevproject
+.pyproject
+.settings
+.metadata
