@@ -19,21 +19,22 @@ class fts::service (
     ensure => running,
     enable => true,
   }
-  service{'fts-bdii-cache-updater':
-    ensure => running,
-    enable => true,
-  }
   service{'httpd':
     ensure    => running,
     enable    => true,
     subscribe => [Package['fts-rest'], Class['fetchcrl']]
   }
 
-  service{['bdii','fts-info-publisher']:
-    ensure => running,
-    enable => true,
+  if $enable_server { 
+    service{['bdii','fts-info-publisher']:
+      ensure => running,
+      enable => true,
+    }
+    service{'fts-bdii-cache-updater':
+      ensure => running,
+      enable => true,
+   }
   }
-
   if $enable_msg {
     service{'fts-msg-bulk':
       ensure    => running,
