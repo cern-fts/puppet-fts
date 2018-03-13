@@ -45,6 +45,13 @@ class fts::install (
     includepkgs => join($repo_includepkgs,',')
   }
 
+  # Fix onwership of fts3rest logs dir
+  file { '/var/log/fts3rest':
+    ensure => directory,
+    owner  => fts3,
+    group  => fts3,
+  }
+
   # Install oracle client if needed.
   if $::db_type == 'oracle' {
     package{$orapkgs:
