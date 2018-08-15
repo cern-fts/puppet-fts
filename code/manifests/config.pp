@@ -53,7 +53,7 @@ class fts::config (
   fts3config{'/Infosys':             value => $bdii_infosys}
   fts3config{'/Alias':               value => $host_alias}
   fts3config{'/MonitoringMessaging': value => 'true'}
-  fts3config{'roles/Public':         value => 'vo:transfer'}
+  fts3config{'roles/Public':         value => 'all:transfer'}
   fts3config{'roles/production':     value => 'all:config'}
   fts3config{'roles/lcgadmin':     value => 'vo:transfer'}
 
