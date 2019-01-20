@@ -58,7 +58,7 @@ class fts::config (
   fts3config{'/AuthorizedVO':        value => $authorizedVOs}
   fts3config{'roles/Public':         value => 'all:transfer'}
   fts3config{'roles/production':     value => 'all:config'}
-  fts3config{'roles/lcgadmin':     value => 'vo:transfer'}
+  fts3config{'roles/lcgadmin':     value => 'vo:transfer;vo:config'}
 
   # Maybe not needed with newer fts.
   #
